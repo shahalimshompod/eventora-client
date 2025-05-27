@@ -1,120 +1,119 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import concert from "../../assets/images/concert.jpg";
+import tech from "../../assets/images/tech.jpg";
+import business from "../../assets/images/business.jpg";
+import sports from "../../assets/images/sports.jpg";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const HomeBanner = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
+
   return (
-    <section className="overflow-x-hidden">
+    <section className="overflow-x-hidden h-[800px] xl:h-full">
       <Carousel
         showThumbs={false}
         autoPlay={true}
         infiniteLoop={true}
         showStatus={false}
       >
+        {/* Slide 1 - Concert */}
         <div className="relative">
           <img
-            src="https://i.ibb.co.com/7j0mPB3/banner-3.jpg"
-            alt="Header with Navbar"
+            src={concert}
+            alt="Concert"
             className="h-screen w-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-10 flex items-start">
-            <div className="absolute top-[200px] md:top-[400px] 2xl:top-[600px] ml-3 2xl:ml-14 w-full 2xl:w-1/2">
-              <h1
-                data-aos="fade-down"
-                className="text-[#f5f5dc] text-4xl 2xl:text-7xl  font-bold text-left mb-4 montserrat"
-              >
-                Explore the Heart of Untamed{" "}
-                <span className="text-[#6B8E23]">Forests</span>
+          <div className="absolute top-0 left-0 w-full h-full bg-black/30 flex flex-col items-center justify-center text-center">
+            <div data-aos="fade-down" className="max-w-2xl mx-auto">
+              <h1 className="text-[#f5f5dc] text-4xl md:text-6xl font-bold mb-4 marcel">
+                Feel the Pulse of{" "}
+                <span className="text-[#FE3E01]">Live Music</span>
               </h1>
               <p
                 data-aos="fade-up"
-                className="text-xl text-[#f5f5dc] text-left poppins"
+                className="text-xl text-[#f5f5dc] sand font-bold mb-4"
               >
-                Unleash your adventurous spirit and discover the secrets hidden
-                in the lush green wilderness. Join us for an unforgettable
-                expedition!
+                Dive into the electrifying world of live concerts. Let the
+                rhythm, lights, and crowd energy sweep you off your feet.
               </p>
+              <button className="px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 transition">
+                Join the Beat
+              </button>
             </div>
           </div>
         </div>
 
+        {/* Slide 2 - Tech */}
         <div className="relative">
-          <img
-            src="https://i.ibb.co.com/1bvr9Rp/banner-4.jpg"
-            alt="Slide 2"
-            className="h-screen w-full object-cover"
-          />
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-start">
-            <div className="absolute top-[200px] md:top-[400px] 2xl:top-[600px] ml-3 2xl:ml-14 w-full 2xl:w-1/2">
-              <h1 className="text-[#f5f5dc] text-4xl 2xl:text-7xl  font-bold text-left mb-4 montserrat">
-                Where <span className="text-[#6B8E23]">Nature</span> Tells Its
-                Own Story
+          <img src={tech} alt="Tech" className="h-screen w-full object-cover" />
+          <div className="absolute top-0 left-0 w-full h-full bg-black/30 flex flex-col items-center justify-center text-center">
+            <div className="max-w-2xl mx-auto">
+              <h1 className="text-[#f5f5dc] text-4xl md:text-6xl font-bold mb-4 marcel">
+                Innovate with <span className="text-[#FE3E01]">Technology</span>
               </h1>
-              <p className="text-xl text-white text-left poppins">
-                Step into the tranquil beauty of untouched forests. Experience
-                serenity like never before with eco-friendly adventures.
+              <p className="text-xl text-[#f5f5dc] sand font-bold mb-4">
+                Explore cutting-edge technology in action. From AI marvels to
+                futuristic gadgets, see innovation come alive!
               </p>
+              <button className="px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 transition">
+                Explore Tech
+              </button>
             </div>
           </div>
         </div>
 
+        {/* Slide 3 - Business */}
         <div className="relative">
           <img
-            src="https://i.ibb.co.com/xCp6Yhz/banner-5.jpg"
-            alt="Slide 3"
+            src={business}
+            alt="Business"
             className="h-screen w-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-start">
-            <div className="absolute top-[200px] md:top-[400px] 2xl:top-[600px] ml-3 2xl:ml-14 w-full 2xl:w-1/2">
-              <h1 className="text-[#f5f5dc] text-4xl 2xl:text-7xl  font-bold text-left mb-4 montserrat">
-                <span className="text-[#8B4513]">Adventure</span> Beyond
-                Boundaries
+          <div className="absolute top-0 left-0 w-full h-full bg-black/30 flex flex-col items-center justify-center text-center">
+            <div className="max-w-2xl mx-auto">
+              <h1 className="text-[#f5f5dc] text-4xl md:text-6xl font-bold mb-4 marcel">
+                Empowering{" "}
+                <span className="text-[#FE3E01]">Future Leaders</span>
               </h1>
-              <p className="text-xl text-white text-left poppins">
-                From towering trees to vibrant wildlife, dive deep into nature's
-                wonderland. Make every moment an extraordinary memory.
+              <p className="text-xl text-[#f5f5dc] sand font-bold mb-4">
+                Step into a world of ideas, strategy, and entrepreneurship.
+                Unlock your potential to lead in a global economy.
               </p>
+              <button className="px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 transition">
+                Learn Business
+              </button>
             </div>
           </div>
         </div>
 
+        {/* Slide 4 - Sports */}
         <div className="relative">
           <img
-            src="https://i.ibb.co.com/MR9PM9b/banner-1.jpg"
-            alt="Slide 4"
+            src={sports}
+            alt="Sports"
             className="h-screen w-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-start">
-            <div className="absolute top-[200px] md:top-[400px] 2xl:top-[600px] ml-3 2xl:ml-14 w-full 2xl:w-1/2">
-              <h1 className="text-[#f5f5dc] text-4xl 2xl:text-7xl  font-bold text-left mb-4 montserrat">
-                <span className="text-[#6B8E23]">Connect with Nature</span>,
-                Sustainably
+          <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex flex-col items-center justify-center text-center">
+            <div className="max-w-2xl mx-auto">
+              <h1 className="text-[#f5f5dc] text-4xl md:text-6xl font-bold mb-4 marcel">
+                Unleash the{" "}
+                <span className="text-[#FE3E01]">Athlete Within</span>
               </h1>
-              <p className="text-xl text-white text-left poppins">
-                Travel responsibly. Immerse yourself in the beauty of nature
-                while protecting its treasures for future generations.
+              <p className="text-xl text-[#f5f5dc] sand font-bold mb-4">
+                From thrilling matches to intense training, embrace the
+                competitive spirit and push your limits.
               </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative">
-          <img
-            src="https://i.ibb.co.com/0QPhNhS/banner-2.jpg"
-            alt="Slide 5"
-            className="h-screen w-full object-cover"
-          />
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30 flex items-start">
-            <div className="absolute top-[200px] md:top-[400px] 2xl:top-[600px] ml-3 2xl:ml-14 w-full 2xl:w-1/2">
-              <h1 className="text-[#f5f5dc] text-4xl 2xl:text-7xl  font-bold text-left mb-4 montserrat">
-                Your Next <span className="text-[#87CEEB]">Expedition</span>{" "}
-                Awaits!
-              </h1>
-              <p className="text-xl text-white text-left poppins">
-                Get ready for an awe-inspiring journey through the dense
-                forests. Adventure, exploration, and memories are just a step
-                away.
-              </p>
+              <button className="px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 transition">
+                Get Active
+              </button>
             </div>
           </div>
         </div>
