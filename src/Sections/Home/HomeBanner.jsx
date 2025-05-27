@@ -1,23 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import concert from "../../assets/images/concert.jpg";
 import tech from "../../assets/images/tech.jpg";
 import business from "../../assets/images/business.jpg";
 import sports from "../../assets/images/sports.jpg";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const HomeBanner = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-  }, []);
-
   return (
-    <section className="overflow-x-hidden h-[800px] xl:h-full">
+    <section className="overflow-x-hidden">
       <Carousel
         showThumbs={false}
         autoPlay={true}
@@ -32,19 +23,28 @@ const HomeBanner = () => {
             className="h-screen w-full object-cover"
           />
           <div className="absolute top-0 left-0 w-full h-full bg-black/30 flex flex-col items-center justify-center text-center">
-            <div data-aos="fade-down" className="max-w-2xl mx-auto">
-              <h1 className="text-[#f5f5dc] text-4xl md:text-6xl font-bold mb-4 marcel">
+            <div className="max-w-2xl mx-auto">
+              <h1
+                data-aos="fade-up"
+                data-aos-delay="0"
+                className="text-[#f5f5dc] text-4xl md:text-8xl font-bold mb-4 marcel"
+              >
                 Feel the Pulse of{" "}
                 <span className="text-[#FE3E01]">Live Music</span>
               </h1>
               <p
                 data-aos="fade-up"
+                data-aos-delay="300"
                 className="text-xl text-[#f5f5dc] sand font-bold mb-4"
               >
                 Dive into the electrifying world of live concerts. Let the
                 rhythm, lights, and crowd energy sweep you off your feet.
               </p>
-              <button className="px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 transition">
+              <button
+                data-aos="fade-up"
+                data-aos-delay="600"
+                className="px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 transition"
+              >
                 Join the Beat
               </button>
             </div>
@@ -56,7 +56,7 @@ const HomeBanner = () => {
           <img src={tech} alt="Tech" className="h-screen w-full object-cover" />
           <div className="absolute top-0 left-0 w-full h-full bg-black/30 flex flex-col items-center justify-center text-center">
             <div className="max-w-2xl mx-auto">
-              <h1 className="text-[#f5f5dc] text-4xl md:text-6xl font-bold mb-4 marcel">
+              <h1 className="text-[#f5f5dc] text-4xl md:text-8xl font-bold mb-4 marcel">
                 Innovate with <span className="text-[#FE3E01]">Technology</span>
               </h1>
               <p className="text-xl text-[#f5f5dc] sand font-bold mb-4">
@@ -79,7 +79,7 @@ const HomeBanner = () => {
           />
           <div className="absolute top-0 left-0 w-full h-full bg-black/30 flex flex-col items-center justify-center text-center">
             <div className="max-w-2xl mx-auto">
-              <h1 className="text-[#f5f5dc] text-4xl md:text-6xl font-bold mb-4 marcel">
+              <h1 className="text-[#f5f5dc] text-4xl md:text-8xl font-bold mb-4 marcel">
                 Empowering{" "}
                 <span className="text-[#FE3E01]">Future Leaders</span>
               </h1>
@@ -103,7 +103,7 @@ const HomeBanner = () => {
           />
           <div className="absolute top-0 left-0 w-full h-full bg-black/50 flex flex-col items-center justify-center text-center">
             <div className="max-w-2xl mx-auto">
-              <h1 className="text-[#f5f5dc] text-4xl md:text-6xl font-bold mb-4 marcel">
+              <h1 className="text-[#f5f5dc] text-4xl md:text-8xl font-bold mb-4 marcel">
                 Unleash the{" "}
                 <span className="text-[#FE3E01]">Athlete Within</span>
               </h1>

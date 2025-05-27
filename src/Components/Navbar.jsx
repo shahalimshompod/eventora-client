@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import ticket from "../assets/icons/eventora-logo.png";
+import logoBlack from "../assets/logo/logo-black.png";
+import logoWhite from "../assets/logo/logo-white.png";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { DataContext } from "../Context/DataContextProvider";
 
@@ -21,7 +22,6 @@ const Navbar = () => {
   //     toast.success("Successfully logged out!");
   //     setMenuOpen(false);
   //   };
-
 
   const user = true;
 
@@ -54,28 +54,46 @@ const Navbar = () => {
       <div
         className={`fixed top-0 left-0 right-0 z-50 py-4 ${
           scrolled || path !== "/"
-            ? "bg-[#FE3E01] transition ease-in duration-300"
+            ? "bg-white transition ease-in duration-300"
             : "bg-transparent transition ease-in duration-300"
         }`}
       >
         <div className="navbar container mx-auto px-4 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img className="w-10" src={ticket} alt="Eventora logo" />
-            <span className="text-3xl marcel text-white">
+            {scrolled ? (
+              <img className="w-10" src={logoBlack} alt="Eventora logo" />
+            ) : (
+              <img className="w-10" src={logoWhite} alt="Eventora logo" />
+            )}
+            <span
+              className={`text-3xl marcel  ${
+                scrolled
+                  ? "text-black transition ease-in duration-300"
+                  : "text-white transition ease-in duration-300"
+              }`}
+            >
               EVEN<span className="text-[#FE3E01]">T</span>ORA
             </span>
           </Link>
 
           {/* Desktop menu */}
-          <ul className="hidden lg:flex menu-horizontal text-white sand text-base md:text-lg gap-6">
+          <ul
+            className={`hidden lg:flex menu-horizontal  sand text-base md:text-lg gap-6 ${
+              scrolled ? "text-black" : "text-white"
+            } `}
+          >
             {routes.map(({ path, label }) => (
               <li key={path}>
                 <NavLink
                   to={path}
                   className={({ isActive }) =>
                     isActive
-                      ? "bg-[#FE3E01]/70 text-white rounded-md px-3 py-1"
+                      ? ` ${
+                          scrolled
+                            ? "bg-white text-[#FE3E01] font-bold transition ease-in duration-300 rounded-md px-3 py-1"
+                            : "bg-[#FE3E01]/70 text-white rounded-md px-3 py-1"
+                        } `
                       : "hover:bg-white/20 px-3 py-1 rounded-md transition"
                   }
                 >
