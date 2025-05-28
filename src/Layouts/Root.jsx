@@ -4,6 +4,8 @@ import "aos/dist/aos.css";
 import Navbar from "../Components/Navbar";
 import { Outlet } from "react-router-dom";
 import DataContextProvider from "../Context/DataContextProvider";
+import LoginModal from "../Components/LoginModal";
+import { Toaster } from "react-hot-toast";
 
 const Root = () => {
   // data aos setup
@@ -17,8 +19,10 @@ const Root = () => {
   return (
     <DataContextProvider>
       <div>
+        <Toaster />
         <Navbar />
         <Outlet />
+        <LoginModal />
       </div>
     </DataContextProvider>
   );

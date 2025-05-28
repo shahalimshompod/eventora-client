@@ -3,6 +3,9 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import logoBlack from "../assets/logo/logo-black.png";
 import logoWhite from "../assets/logo/logo-white.png";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../Auth/AuthContextProvider";
+import toast from "react-hot-toast";
 // import { AuthContext } from "../Context/AuthContextProvider";
 
 const Navbar = () => {
@@ -10,14 +13,18 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const path = location.pathname;
+  // auth
+  const { user, setIsLoginModalOpen, signInWithGoogle, loginUser, userLogout } =
+    useContext(AuthContext);
+
+  // handle log out
+  const handleLogout = () => {
+    userLogout();
+    toast.success("Successfully logged out!");
+    setMenuOpen(false);
+  };
 
   // Dummy user data (replace with real AuthContext)
-  const user = {
-    displayName: "John Doe",
-    email: "john.doe@example.com",
-    photoURL: "", // If available, else fallback to FaUserCircle
-    role: "admin", // Optional for checking admin routes
-  };
 
   // Toggle hamburger menu
   const toggleMenu = () => setMenuOpen((prev) => !prev);
@@ -143,21 +150,19 @@ const Navbar = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <p
-                      className="cursor-pointer"
-                      onClick={() => alert("Logout Clicked!")}
-                    >
+                    <p className="cursor-pointer" onClick={handleLogout}>
                       Logout
                     </p>
                   </li>
                 </ul>
               </div>
             ) : (
-              <Link to="/login" className="hidden lg:block">
-                <button className="btn quick border-none hover:bg-amber-300 bg-amber-300 text-[#FE3E01]">
-                  Login
-                </button>
-              </Link>
+              <button
+                onClick={() => setIsLoginModalOpen(true)}
+                className="sand btn border-none shadow-none hover:bg-[#FE3E01] text-black bg-white rounded-none transition ease-in duration-300 hover:text-white"
+              >
+                Login
+              </button>
             )}
           </div>
         </div>
@@ -198,11 +203,12 @@ const Navbar = () => {
               )}
               {!user && (
                 <li>
-                  <Link to="/login" onClick={() => setMenuOpen(false)}>
-                    <button className="w-full btn quick border-none hover:bg-amber-300 bg-amber-300 text-[#FE3E01]">
-                      Login
-                    </button>
-                  </Link>
+                  <button
+                    onClick={() => setIsLoginModalOpen(true)}
+                    className="w-full btn quick border-none hover:bg-amber-300 bg-amber-300 text-[#FE3E01]"
+                  >
+                    Login
+                  </button>
                 </li>
               )}
             </ul>

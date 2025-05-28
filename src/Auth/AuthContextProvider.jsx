@@ -17,6 +17,8 @@ const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [gettingUserLoading, setGettingUserLoading] = useState(true);
   const [loginLoader, setLoginLoader] = useState(true);
+  // modal state
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   // Google login
   const googleProvider = new GoogleAuthProvider();
@@ -67,6 +69,8 @@ const AuthContextProvider = ({ children }) => {
     setGettingUserLoading,
     gettingUserLoading,
     loginLoader,
+    isLoginModalOpen,
+    setIsLoginModalOpen,
   };
 
   return (
