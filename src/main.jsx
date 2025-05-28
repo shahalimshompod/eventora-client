@@ -9,6 +9,7 @@ import AuthContextProvider from "./Auth/AuthContextProvider.jsx";
 import Events from "./Routes/Events.jsx";
 import EventsByCategory from "./Routes/EventsByCategory.jsx";
 import EventDetails from "./Routes/EventDetails.jsx";
+import AddEvent from "./Routes/AddEvent.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/event-details/:id",
         element: <EventDetails />,
+      },
+      {
+        path: "/add-event",
+        element: <AddEvent />,
       },
     ],
   },

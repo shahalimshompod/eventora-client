@@ -3,7 +3,8 @@ import { DataContext } from "../Context/DataContextProvider";
 import EventCard from "../Components/EventCard";
 
 const Events = () => {
-  const { eventData } = useContext(DataContext);
+  const { eventData, userRole } = useContext(DataContext);
+  console.log(userRole);
   return (
     <div className="my-24">
       <div className="relative events-bg-image py-44">

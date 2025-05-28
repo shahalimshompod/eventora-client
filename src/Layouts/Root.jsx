@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 import DataContextProvider from "../Context/DataContextProvider";
 import LoginModal from "../Components/LoginModal";
 import { Toaster } from "react-hot-toast";
+import Footer from "../Components/Footer";
 
 const Root = () => {
   // data aos setup
@@ -22,6 +23,7 @@ const Root = () => {
         <Toaster />
         <Navbar />
         <Outlet />
+        <Footer />
         <LoginModal />
       </div>
     </DataContextProvider>

@@ -4,12 +4,17 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaLocationArrow } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../Auth/AuthContextProvider";
+import RegistrationModal from "../Components/RegistrationModal";
 
 const EventDetails = () => {
   const axiosPublic = useAxiosPublic();
   const [detailsData, setDetailsData] = useState([]);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
+  const { user, setIsLoginModalOpen } = useContext(AuthContext);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   const {
     availableSeats,
@@ -33,6 +38,17 @@ const EventDetails = () => {
     if (res?.data) {
       setDetailsData(res?.data);
       setLoading(false);
+    }
+  };
+
+  // for checking user
+  const handleClick = () => {
+    if (!user) {
+      setIsLoginModalOpen(true); // Show login modal
+      return;
+    }
+    if (user) {
+      setSelectedEvent(detailsData);
     }
   };
 
@@ -109,12 +125,20 @@ const EventDetails = () => {
               <strong>Available Seats: </strong>
               {availableSeats}
             </p>
-            <button className="btn border border-[#FE3E01] rounded-none bg-transparent sand transition hover:bg-[#FE3E01] hover:text-white ease-in duration-300 mt-1.5">
+            <button
+              onClick={handleClick}
+              className="btn border border-[#FE3E01] rounded-none bg-transparent sand transition hover:bg-[#FE3E01] hover:text-white ease-in duration-300 mt-1.5"
+            >
               Register Now
             </button>
           </div>
         </div>
       </div>
+      <RegistrationModal
+        selectedEvent={selectedEvent}
+        fetchData={fetchData}
+        setSelectedEvent={setSelectedEvent}
+      />
     </div>
   );
 };

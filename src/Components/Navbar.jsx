@@ -6,16 +6,33 @@ import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../Auth/AuthContextProvider";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 // import { AuthContext } from "../Context/AuthContextProvider";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [userRole, setUserRole] = useState(null);
   const location = useLocation();
+  const axiosPublic = useAxiosPublic();
   const path = location.pathname;
+  const role = userRole?.role;
   // auth
-  const { user, setIsLoginModalOpen, signInWithGoogle, loginUser, userLogout } =
-    useContext(AuthContext);
+  const { user, setIsLoginModalOpen, userLogout } = useContext(AuthContext);
+
+  // fetch all events data
+  const fetchUserData = async () => {
+    const res = await axiosPublic.get(`/users?email=${user?.email}`);
+    if (res?.data) {
+      setUserRole(res?.data);
+    }
+  };
+
+  useEffect(() => {
+    if (user?.email) {
+      fetchUserData();
+    }
+  }, [user, axiosPublic]);
 
   // handle log out
   const handleLogout = () => {
@@ -44,7 +61,7 @@ const Navbar = () => {
     ...(user
       ? [
           { path: "/my-bookings", label: "My Bookings" },
-          ...(user.role === "admin"
+          ...(role === "admin"
             ? [{ path: "/add-event", label: "Add Event" }]
             : []),
         ]
