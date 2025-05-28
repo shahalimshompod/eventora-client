@@ -54,7 +54,7 @@ const WelcomeSection = () => {
           <div
             key={idx}
             data-aos="fade-up"
-            data-aos-delay={400 + idx * 200}
+            data-aos-delay={100 + idx * 200}
             data-aos-duration="700"
             className="flex flex-col justify-between h-full gap-6"
           >

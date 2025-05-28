@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import logoBlack from "../assets/logo/logo-black.png";
 import logoWhite from "../assets/logo/logo-white.png";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
-import { DataContext } from "../Context/DataContextProvider";
+// import { AuthContext } from "../Context/AuthContextProvider";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -11,31 +11,26 @@ const Navbar = () => {
   const location = useLocation();
   const path = location.pathname;
 
-  //   const { user, userLogout } = useContext(AuthContext);
-  //   const image = user?.photoURL;
+  // Dummy user data (replace with real AuthContext)
+  const user = {
+    displayName: "John Doe",
+    email: "john.doe@example.com",
+    photoURL: "", // If available, else fallback to FaUserCircle
+    role: "admin", // Optional for checking admin routes
+  };
 
   // Toggle hamburger menu
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
-  //   const handleLogout = () => {
-  //     userLogout();
-  //     toast.success("Successfully logged out!");
-  //     setMenuOpen(false);
-  //   };
-
-  const user = true;
-
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY;
-      setScrolled(offset > 200);
+      setScrolled(window.scrollY > 200);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Routes array for reusability
+  // Define routes
   const routes = [
     { path: "/", label: "Home" },
     { path: "/events", label: "Events" },
@@ -49,52 +44,45 @@ const Navbar = () => {
       : []),
   ];
 
+  // Dynamic styles
+  const isHome = path === "/";
+  const bgClass = isHome && !scrolled ? "bg-transparent" : "bg-white";
+  const textColor = isHome && !scrolled ? "text-white" : "text-black";
+
   return (
     <div className="shadow-sm">
       <div
-        className={`fixed top-0 left-0 right-0 z-50 py-4 ${
-          scrolled || path !== "/"
-            ? "bg-white transition ease-in duration-300"
-            : "bg-transparent transition ease-in duration-300"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 py-4 transition duration-300 ${bgClass}`}
       >
-        <div className="navbar container mx-auto px-4 flex items-center justify-between">
+        <div className="navbar container mx-auto flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            {scrolled ? (
-              <img className="w-10" src={logoBlack} alt="Eventora logo" />
-            ) : (
-              <img className="w-10" src={logoWhite} alt="Eventora logo" />
-            )}
-            <span
-              className={`text-3xl marcel  ${
-                scrolled
-                  ? "text-black transition ease-in duration-300"
-                  : "text-white transition ease-in duration-300"
-              }`}
-            >
+            <img
+              className="w-10"
+              src={isHome && !scrolled ? logoWhite : logoBlack}
+              alt="Eventora logo"
+            />
+            <span className={`text-3xl marcel ${textColor}`}>
               EVEN<span className="text-[#FE3E01]">T</span>ORA
             </span>
           </Link>
 
           {/* Desktop menu */}
           <ul
-            className={`hidden lg:flex menu-horizontal  sand text-base md:text-lg gap-6 ${
-              scrolled ? "text-black" : "text-white"
-            } `}
+            className={`hidden lg:flex menu-horizontal sand text-base md:text-lg gap-6 ${textColor}`}
           >
-            {routes.map(({ path, label }) => (
-              <li key={path}>
+            {routes.map(({ path: routePath, label }) => (
+              <li key={routePath}>
                 <NavLink
-                  to={path}
+                  to={routePath}
                   className={({ isActive }) =>
                     isActive
-                      ? ` ${
-                          scrolled
-                            ? "bg-white text-[#FE3E01] font-bold transition ease-in duration-300 rounded-md px-3 py-1"
-                            : "bg-[#FE3E01]/70 text-white rounded-md px-3 py-1"
-                        } `
-                      : "hover:bg-white/20 px-3 py-1 rounded-md transition"
+                      ? isHome && !scrolled
+                        ? "font-bold text-[#FE3E01]"
+                        : "font-bold text-[#FE3E01]"
+                      : isHome && !scrolled
+                      ? "hover:bg-white/20 px-3 py-1 rounded-md transition text-white"
+                      : "hover:bg-black/10 px-3 py-1 rounded-md transition text-black"
                   }
                 >
                   {label}
@@ -103,18 +91,18 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* Mobile hamburger & profile */}
+          {/* Hamburger and profile */}
           <div className="flex items-center gap-4">
             {/* Hamburger */}
             <button
               onClick={toggleMenu}
-              className="lg:hidden text-white text-2xl focus:outline-none"
+              className={`lg:hidden text-2xl ${textColor}`}
               aria-label="Toggle menu"
             >
               {menuOpen ? <FaTimes /> : <FaBars />}
             </button>
 
-            {/* Profile dropdown */}
+            {/* Profile Dropdown */}
             {user ? (
               <div className="dropdown dropdown-end relative">
                 <div
@@ -123,31 +111,26 @@ const Navbar = () => {
                   className="btn bg-transparent btn-circle avatar"
                 >
                   <div className="w-10 rounded-full">
-                    {/* {image ? (
-                      <img alt="Profile" src={image} />
+                    {user.photoURL ? (
+                      <img alt="Profile" src={user.photoURL} />
                     ) : (
-                      <FaUserCircle fill="white" size={38} />
-                    )} */}
+                      <FaUserCircle className={`${textColor}`} size={38} />
+                    )}
                   </div>
                 </div>
-
                 <ul
                   tabIndex={0}
-                  className="menu quick menu-sm dropdown-content bg-base-100 rounded-box shadow mt-3 w-fit p-2 z-50"
+                  className="menu menu-sm dropdown-content bg-base-100 rounded-box shadow mt-3 w-fit p-2 z-50"
                 >
-                  {/* User Info */}
                   <li className="p-2">
                     <h1 className="font-black text-lg truncate">
-                      {user?.displayName}
+                      {user.displayName}
                     </h1>
                     <h4 className="font-semibold text-sm truncate">
-                      {user?.email}
+                      {user.email}
                     </h4>
                   </li>
-
-                  {/* Divider */}
                   <div className="divider my-2"></div>
-
                   <li>
                     <NavLink
                       to="/profile"
@@ -156,13 +139,13 @@ const Navbar = () => {
                         isActive ? "bg-amber-100" : ""
                       }
                     >
-                      <p className="font-normal text-base">Profile</p>
+                      Profile
                     </NavLink>
                   </li>
                   <li>
                     <p
-                      className="font-normal text-base cursor-pointer"
-                      //   onClick={handleLogout}
+                      className="cursor-pointer"
+                      onClick={() => alert("Logout Clicked!")}
                     >
                       Logout
                     </p>
@@ -179,14 +162,14 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile menu dropdown */}
+        {/* Mobile menu */}
         {menuOpen && (
           <div className="lg:hidden bg-[#FE3E01] text-white px-6 py-4">
             <ul className="flex flex-col gap-4 quick font-semibold text-base">
-              {routes.map(({ path, label }) => (
-                <li key={path}>
+              {routes.map(({ path: routePath, label }) => (
+                <li key={routePath}>
                   <NavLink
-                    to={path}
+                    to={routePath}
                     onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
                       isActive
@@ -198,8 +181,6 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               ))}
-
-              {/* Profile link for mobile */}
               {user && (
                 <li>
                   <NavLink
@@ -215,7 +196,6 @@ const Navbar = () => {
                   </NavLink>
                 </li>
               )}
-
               {!user && (
                 <li>
                   <Link to="/login" onClick={() => setMenuOpen(false)}>

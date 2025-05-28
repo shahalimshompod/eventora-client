@@ -1,13 +1,28 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 // creating context
 export const DataContext = createContext();
 const DataContextProvider = ({ children }) => {
-  const [data, setData] = useState("Sompod");
+  const [eventData, setEventData] = useState([]);
+  const axiosPublic = useAxiosPublic();
+
+  // fetch all events data
+  const fetchData = async () => {
+    const res = await axiosPublic.get("/all-events");
+    if (res?.data) {
+      setEventData(res?.data);
+    }
+  };
+
+  // fetching data
+  useEffect(() => {
+    fetchData();
+  }, [axiosPublic]);
 
   const dataInfo = {
-    data,
-    setData,
+    eventData,
+    setEventData,
   };
   return (
     <DataContext.Provider value={dataInfo}>{children}</DataContext.Provider>

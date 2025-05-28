@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MdDateRange } from "react-icons/md";
 import { FaLocationArrow } from "react-icons/fa";
 
@@ -9,7 +9,6 @@ const EventCard = ({ data }) => {
   const {
     _id,
     title,
-    category,
     time,
     location,
     organizer,
@@ -19,18 +18,26 @@ const EventCard = ({ data }) => {
     featured,
   } = data;
   return (
-    <div className="bg-base-100 w-full shadow-sm">
-      <figure className="h-64 overflow-hidden">
+    <div className="bg-base-100 w-full shadow-lg">
+      <figure className="h-52 overflow-hidden">
         <img src={image} alt="Shoes" />
       </figure>
-      <div className="p-4 flex flex-col gap-2">
-        <h2 className="card-title marcel">
-          {title}
-          {path !== "/" && (
-            <div className="badge badge-secondary">
-              {featured ? "Featured" : ""}
-            </div>
-          )}
+      <div className="p-4 flex flex-col gap-2 ">
+        <h2 className="card-title marcel flex items-center justify-between">
+          <span>{title}</span>
+          <div>
+            {path !== "/" && (
+              <div>
+                {featured ? (
+                  <div className="badge badge-secondary">
+                    {featured ? "Featured" : ""}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            )}
+          </div>
         </h2>
         <p className="flex items-center gap-2 sand">
           <MdDateRange size={20} />
@@ -54,9 +61,11 @@ const EventCard = ({ data }) => {
 
         <div className="border-b border-b-gray-300"></div>
 
-        <button className="btn border border-[#FE3E01] rounded-none bg-transparent sand transition hover:bg-[#FE3E01] hover:text-white ease-in duration-300 mt-1.5">
-          View Details
-        </button>
+        <Link to={`/event-details/${_id}`}>
+          <button className="btn border border-[#FE3E01] rounded-none bg-transparent sand transition hover:bg-[#FE3E01] hover:text-white ease-in duration-300 mt-1.5">
+            View Details
+          </button>
+        </Link>
       </div>
     </div>
   );
